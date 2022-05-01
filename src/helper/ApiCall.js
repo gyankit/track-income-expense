@@ -1,5 +1,5 @@
 const API = async (request) => {
-    const url = "http://localhost:8000/graphql";
+    const url = "http://localhost:8000/api/graphql";
     const options = {
         method: "POST",
         headers: {

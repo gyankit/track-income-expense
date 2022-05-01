@@ -1,0 +1,18 @@
+const http = require('http');
+const app = require('../app');
+const db = require('../config/database');
+
+app.set('port', process.env.PORT || 8000);
+app.set('host', process.env.HOST || '127.0.0.1');
+
+db.connect();
+
+const server = http.createServer(app);
+
+server.listen(app.get('port'), app.get('host'), () => {
+    console.log(`Running a Server at http://${app.get('host')}:${app.get('port')}`);
+})
+    .on('error', (error) => {
+        console.log('Error Occur');
+        console.error(error);
+    });

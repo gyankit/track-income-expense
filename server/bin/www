@@ -2,7 +2,7 @@ const http = require('http');
 const app = require('../app');
 const db = require('../config/database');
 
-app.set('port', process.env.PORT || 8000);
+app.set('port', process.env.PORT || 8080);
 app.set('host', process.env.HOST || '127.0.0.1');
 
 db.connect();

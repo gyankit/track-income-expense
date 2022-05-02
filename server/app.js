@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 
 process.env.NODE_ENV !== 'production' && app.use(cors);
 
-app.use('/', express.static(path.join(__dirname, 'views/track-income-expense-0.1.0')));
+app.use(express.static(path.join(__dirname, 'views/track-income-expense-0.1.0')));
 
 app.use('/api', auth);
 
@@ -24,5 +24,9 @@ app.use('/api/graphql', graphqlHTTP({
     rootValue: resolver,
     graphiql: true,
 }));
+
+app.get('/*', function (req, res) {
+    res.sendFile(path.join(__dirname, 'views/track-income-expense-0.1.0', 'index.html'));
+});
 
 module.exports = app;

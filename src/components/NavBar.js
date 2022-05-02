@@ -31,7 +31,7 @@ function NavBar() {
         return dayCount;
     }
 
-    const [dayCount, dispatch] = useReducer(reducer, reducer(context.displayDate.month, context.displayDate.year));
+    const [dayCount, dispatch] = useReducer(reducer, reducer(0, context.displayDate.month, context.displayDate.year));
 
     return (
         <div className="navbar">

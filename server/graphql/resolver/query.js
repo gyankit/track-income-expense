@@ -36,7 +36,7 @@ module.exports = {
         try {
             if (!req.isAuth) throw new Error(400);
             const IncomeExpense = IncomeExpenseModel(req._id);
-            const data = await IncomeExpense.find({}).sort({ createdAt: -1 });
+            const data = await IncomeExpense.find({}).sort({ _id: -1 });
             return multiResponse(data);
         }
         catch (error) {

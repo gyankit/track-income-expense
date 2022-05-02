@@ -7,13 +7,11 @@ const schema = buildSchema(`
   }
 
   type IncomeExpense {
-    _id: ID
-    dateTime: String
-    date: String
-    time: String
-    amount: Int
-    type: String
-    category: String
+    _id: ID!
+    dateTime: String!
+    amount: Int!
+    type: String!
+    category: String!
     comment: String
   }
 
@@ -24,6 +22,7 @@ const schema = buildSchema(`
   }
 
   input IncomeExpenseInput {
+    dateTime: String!
     amount: Int!
     type: String!
     category: String!

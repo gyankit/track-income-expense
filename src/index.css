@@ -121,7 +121,7 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding-top: 5rem;
+    padding-top: 1rem;
 }
   
 .modal-content {
@@ -292,12 +292,10 @@
 
 .list-green {
     box-shadow: rgb(113, 250, 58) 0px 5px 15px;
-    /* coslor: whitesmoke; */
 }
 
 .list-red {
     box-shadow: rgb(250, 63, 57) 0px 5px 15px;
-    /* color: whitesmoke; */
 }
 
 .list-display {

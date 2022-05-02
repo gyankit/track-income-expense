@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 
 const UserModel = require('../../models/userModel');
 const IncomeExpenseModel = require('../../models/incomeExpenseModel');
-const { singleResponse } = require('../../utils/response');
+const { singleResponse } = require('../../middleware/response');
 
 module.exports = {
     createUser: async (args, req) => {
@@ -53,9 +53,11 @@ module.exports = {
 
     createIncomeExpense: async (args, req) => {
         try {
+            console.log(args)
             if (!req.isAuth) throw new Error(400);
             const IncomeExpense = IncomeExpenseModel(req._id);
             const incomeExpense = new IncomeExpense({
+                dateTime: args.incomeExpense.dateTime,
                 amount: args.incomeExpense.amount,
                 type: args.incomeExpense.type,
                 category: args.incomeExpense.category,

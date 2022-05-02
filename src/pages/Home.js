@@ -8,7 +8,7 @@ import { isSessionSet } from '../helper/Session';
 import AuthContext from '../helper/Context';
 import API from '../helper/ApiCall';
 
-const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+// const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 function Home() {
     const navigate = useNavigate();
@@ -27,25 +27,26 @@ function Home() {
         setDisplayDate({ year: Number(data.year), month: Number(data.month), date: Number(data.date) });
 
         setIncomes(totalIncomes.filter(elm => {
-            return elm.date === `${data.year}, ${months[data.month - 1]} ${data.date}`
+            return (new Date(elm.dateTime)).toLocaleDateString() === `${data.year}/${data.month}/${data.date}`
         }));
 
         setExpenses(totalExpenses.filter(elm => {
-            return elm.date === `${data.year}, ${months[data.month - 1]} ${data.date}`
+            return (new Date(elm.dateTime)).toLocaleDateString() === `${data.year}/${data.month}/${data.date}`
         }));
 
         setMonthlyIncome(totalIncomes.reduce((total, elm) => {
-            return (new Date(elm.date)).getMonth() === Number(data.month - 1) ? total + elm.amount : total;
+            return (new Date(elm.dateTime)).getMonth() === Number(data.month - 1) ? total + elm.amount : total;
         }, 0));
 
         setMonthlyExpense(totalExpenses.reduce((total, elm) => {
-            return (new Date(elm.date)).getMonth() === Number(data.month - 1) ? total + elm.amount : total;
+            return (new Date(elm.dateTime)).getMonth() === Number(data.month - 1) ? total + elm.amount : total;
         }, 0));
     }
 
     const deleteIncome = async (id, amount) => {
         incomes.shift();
         setIncomes(incomes);
+        setMonthlyIncome(monthlyIncome - amount);
         setOverallIncome(overallIncome - amount);
         const request = {
             query: `mutation { 
@@ -60,6 +61,7 @@ function Home() {
     const deleteExpense = async (id, amount) => {
         expenses.shift();
         setExpenses(expenses);
+        setMonthlyExpense(monthlyExpense - amount);
         setOverallExpense(overallExpense - amount);
         const request = {
             query: `mutation { 
@@ -74,12 +76,14 @@ function Home() {
     const addIncome = async (data) => {
         incomes.unshift(data);
         setIncomes(incomes);
+        setMonthlyIncome(monthlyIncome + data.amount);
         setOverallIncome(overallIncome + data.amount);
     }
 
     const addExpense = async (data) => {
         expenses.unshift(data);
         setExpenses(expenses);
+        setMonthlyExpense(monthlyExpense + data.amount);
         setOverallExpense(overallExpense + data.amount);
     }
 
@@ -100,16 +104,16 @@ function Home() {
                             localIncome.push(elm);
                         }
                     });
-                    setTotalIncomes(localIncome);
 
+                    setTotalIncomes(localIncome);
                     setTotalExpenses(localExpense);
 
                     setIncomes(localIncome.filter(elm => {
-                        return elm.date === `${date.getFullYear()}, ${months[date.getMonth()]} ${date.getDate()}`
+                        return (new Date(elm.dateTime)).toLocaleDateString() === date.toLocaleDateString();
                     }))
 
                     setExpenses(localExpense.filter(elm => {
-                        return elm.date === `${date.getFullYear()}, ${months[date.getMonth()]} ${date.getDate()}`
+                        return (new Date(elm.dateTime)).toLocaleDateString() === date.toLocaleDateString();
                     }))
 
                     setOverallIncome(localIncome.reduce((total, elm) => {
@@ -121,11 +125,11 @@ function Home() {
                     }, 0));
 
                     setMonthlyIncome(localIncome.reduce((total, elm) => {
-                        return (new Date(elm.date)).getMonth() === date.getMonth() ? total + elm.amount : total;
+                        return (new Date(elm.dateTime)).getMonth() === date.getMonth() ? total + elm.amount : total;
                     }, 0));
 
                     setMonthlyExpense(localExpense.reduce((total, elm) => {
-                        return (new Date(elm.date)).getMonth() === date.getMonth() ? total + elm.amount : total;
+                        return (new Date(elm.dateTime)).getMonth() === date.getMonth() ? total + elm.amount : total;
                     }, 0));
                 }
             }
@@ -141,7 +145,7 @@ function Home() {
             const request = {
                 query: `query { 
                     getIncomeExpense {
-                        amount, type, category, comment, date, time, dateTime, _id
+                        _id, dateTime, amount, type, category, comment
                     }
                 }`
             };

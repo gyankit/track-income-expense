@@ -10,6 +10,7 @@ function Form({ setModal }) {
     const amount = useRef(0);
     const category = useRef(undefined);
     const remark = useRef(undefined);
+    const dateTime = new Date();
 
     function reducer(type, action) {
         if (action === 'income')
@@ -24,9 +25,9 @@ function Form({ setModal }) {
         try {
             const request = {
                 query: `mutation {
-                    createIncomeExpense(incomeExpense: { amount: ${amount.current.value}, category: "${category.current.value}", comment: "${remark.current.value}", type: "${type}"
+                    createIncomeExpense(incomeExpense: { dateTime: "${dateTime.toISOString()}", amount: ${amount.current.value}, category: "${category.current.value}", comment: "${remark.current.value}", type: "${type}"
                         }) {
-                        amount, type, category, comment, date, time, dateTime, _id
+                            _id, dateTime, amount, type, category, comment
                     }
                 }
             `};
@@ -68,7 +69,7 @@ function Form({ setModal }) {
                         </div>
                         <div className="form-control">
                             <label htmlFor="amount">Date</label>
-                            <input type="text" value={new Date().toISOString()} readOnly />
+                            <input type="text" value={dateTime.toLocaleString('en-GB')} readOnly />
                         </div>
                         <div className="form-control">
                             <label htmlFor="amount">Amount</label>

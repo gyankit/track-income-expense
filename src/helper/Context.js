@@ -3,16 +3,14 @@ import React from 'react';
 export default React.createContext({
     incomes: [{
         id: String,
-        date: String,
-        time: String,
+        dateTime: String,
         category: String,
         comment: String,
         amount: Number,
     }],
     expenses: [{
         id: String,
-        date: String,
-        time: String,
+        dateTime: String,
         category: String,
         comment: String,
         amount: Number,

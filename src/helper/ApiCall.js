@@ -1,5 +1,6 @@
 const API = async (request) => {
-    const url = "http://localhost:8000/api/graphql";
+    // const url = 'http://localhost:8000/api/graphql';
+    const url = '/api/graphql';
     const options = {
         method: "POST",
         headers: {
@@ -14,7 +15,6 @@ const API = async (request) => {
             "Authorization": localStorage.getItem('token')
         }
     }
-    // console.log(options);
     try {
         const res = await fetch(url, options);
         const rsp = await res.json();

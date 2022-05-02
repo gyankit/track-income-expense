@@ -7,7 +7,7 @@ import Auth from './pages/Auth';
 function App() {
   return (
     <Routes>
-      <Route index path="/" element={<Auth />} />
+      <Route exact path="/" element={<Auth />} />
       <Route exact path="/home" element={<Home />} />
     </Routes>
   );

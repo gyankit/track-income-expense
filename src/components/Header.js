@@ -13,7 +13,7 @@ function Header({ setModal }) {
     return (
         <header className='header'>
             <div className="header-title">
-                <h2>Expense Management</h2>
+                <h2>Track Income Expense</h2>
             </div>
             <div className='btn-space header-btn'>
                 <button type='button' className='btn-hidden blue' onClick={() => setModal(true)}>

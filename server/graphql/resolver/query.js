@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 
 const UserModel = require('../../models/userModel');
 const IncomeExpenseModel = require('../../models/incomeExpenseModel');
-const { multiResponse } = require('../../utils/response');
+const { multiResponse } = require('../../middleware/response');
 
 module.exports = {
     getUser: async (args, req) => {

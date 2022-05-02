@@ -1,6 +1,5 @@
 const API = async (request) => {
-    // const url = 'http://localhost:8000/api/graphql';
-    const url = '/api/graphql';
+    const url = process.env.NODE_ENV === 'production' ? '/api/graphql' : 'http://localhost:8000/api/graphql';
     const options = {
         method: "POST",
         headers: {

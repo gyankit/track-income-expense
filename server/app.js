@@ -13,9 +13,9 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
-app.use(cors);
+process.env.NODE_ENV !== 'production' && app.use(cors);
 
-// app.use('/', express.static(path.join(__dirname, 'views/track-income-expense-0.1.0')));
+app.use('/', express.static(path.join(__dirname, 'views/track-income-expense-0.1.0')));
 
 app.use('/api', auth);
 
